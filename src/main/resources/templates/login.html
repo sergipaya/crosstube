@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+  <title>Login</title>
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div th:if="${errors != null}">
+      <p th:each="error: ${errors}">*<strong th:text="${error.key}"></strong>: <span th:text="${error.value}"></span></p>
+    </div>
+    <section class="row p-3">
+      <article class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 rounded p-3">
+        <form action="/user/login" method="post">
+          <div class="row mt-3 mx-3 mb-1">
+            <label class="col-xl-2 offset-xl-1 col-3" for="usuario">Usuario</label>
+            <input class="col-9" id="usuario" th:name="usuario" th:value="${user?.name}">
+          </div>
+          <div class="row mx-3 mb-1">
+            <label class="col-xl-2 offset-xl-1 col-3" for="password">Password</label>
+            <input class="col-9" id="password" th:name="password" type="password">
+          </div>
+          <div class="row mx-3 mb-1">
+            <input class="col-2 offset-4 btn btn-secondary" type="submit" value="Login">
+            <input class="col-2 offset-1 btn btn-secondary" type="reset" value="Reset">
+          </div>
+        </form>
+        <form action="/user/add" method="get">
+          <input class="btn btn-secondary ms-3 mt-3" type="submit" value="Dar de alta">
+        </form>
+      </article>
+    </section>
+  </div>
+</body>
+
+</html>

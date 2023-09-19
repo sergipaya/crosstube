@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Busqueda</title>
+</head>
+<body>
+<div layout:fragment="navigation" layout:replace="~{fragments/navigation :: nav}"></div>
+<div layout:fragment="content">
+    <div class="row justify-content-center p-3">
+        <form th:if="${isGlobal == false}" class="col-12 text-center my-2" action="/search/type" method="get">
+            <input type="hidden" name="type" th:value="${type}">
+            <input type="hidden" name="page" th:value="${page}">
+            <select name="orderLevel" class="btn btn-secondary btn-lg">
+                <option selected value="disabled">Filtrado Nivel</option>
+                <option value="asc">Ascendente▼</option>
+                <option value="desc">Descendente▲</option>
+            </select>
+            <select name="orderAvg" class="btn btn-secondary btn-lg">
+                <option selected value="disabled">Filtrado AVGRating</option>
+                <option value="asc">Ascendente▼</option>
+                <option value="desc">Descendente▲</option>
+            </select>
+            <select name="orderTitulo" class="btn btn-secondary btn-lg">
+                <option selected value="disabled">Filtrado Titulo</option>
+                <option value="asc">Ascendente▼</option>
+                <option value="desc">Descendente▲</option>
+            </select>
+            <input class="btn btn-secondary btn-lg p-1" type="submit" value="Filtrar">
+        </form>
+        <input type="hidden" name="page" th:value="${page}">
+        <section class="col-12">
+            <article class="row p-3 rounded">
+                <div class="col-12 display-5">
+                    <p th:if="${busqueda}">
+                        <!--ARREGLAR BUSQUEDA-->
+                        <strong th:text="${busqueda.search != '' && busqueda.category != 'all' && busqueda.level != -1} ? 'Search' : 'Todos los resultados'" class="display-4 fw-bold"></strong>
+                        <span  th:each="parametro, iterator :${parametros}" th:text="${parametro}+${iterator.count == parametros.size() ? '' : ', '}"></span>
+                    </p>
+                </div>
+                <div class="col-xl-3 col-md-6 p-3 mb-5"  th:each="exercise: ${exercises}">
+                    <div class="row border border-secondary rounded h-100">
+                        <p class="col-12 text-center" th:text="${exercise.name}"></p>
+                        <img class="col-12" th:src="${exercise.posterLink}">
+                        <p class="col-6" th:text="${exercise.getType()}"></p>
+                        <p class="col-6">Nivel:
+                            <span th:if="${exercise.level.id} == 1" th:text="${exercise.level.name}" class="text-info"></span>
+                            <span th:if="${exercise.level.id} == 2" th:text="${exercise.level.name}" class="text-success"></span>
+                            <span th:if="${exercise.level.id} == 3" th:text="${exercise.level.name}" class="text-warning"></span>
+                            <span th:if="${exercise.level.id} == 4" th:text="${exercise.level.name}" class="text-danger"></span>
+                        </p>
+                        <p class="col-4">Valoraci&oacute;n</p>
+                        <ul class="avgRating col-8">
+                            <li th:if="${exercise.avgRating >= 1}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 1}" class="emptyStar">☆</li>
+                            <li th:if="${exercise.avgRating >= 2}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 2}" class="emptyStar">☆</li>
+                            <li th:if="${exercise.avgRating >= 3}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 3}" class="emptyStar">☆</li>
+                            <li th:if="${exercise.avgRating >= 4}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 4}" class="emptyStar">☆</li>
+                            <li th:if="${exercise.avgRating >= 5}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 5}" class="emptyStar">☆</li>
+                        </ul>
+                    </div>
+                    <form class="col-12 mt-1" action="/exercise/details" method="get">
+                        <input th:value="${exercise.id}" th:name="exerciseId" hidden>
+                        <input type="submit" class="btn btn-secondary w-100" th:value="'Ver Detalle'">
+                    </form>
+                </div>
+                <div class="col-12 mt-3 mb-1" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-auto col-6 text-end">
+                            <a class="btn btn-secondary" th:href=" ${urlBuilder.replaceQueryParam('page', 0).toUriString()}" role="button"><<</a>
+                        </div>
+                        <div class="col-lg-auto col-6 text-start">
+                            <a class="btn btn-secondary" th:href=" ${urlBuilder.replaceQueryParam('page', page - 1).toUriString()}" th:hidden="${page <= 0}" role="button"><</a>
+                        </div>
+                        <div class="col-lg-auto col-12 text-center">
+                                <span th:each="pagina: ${#numbers.sequence(0,paginas,1)}">
+                                    <a class="btn btn-secondary" th:href=" ${urlBuilder.replaceQueryParam('page', pagina).toUriString()}"  role="button" th:text="${pagina}"></a>
+                                </span>
+                        </div>
+                        <div class="col-lg-auto col-6 text-end">
+                            <a class="btn btn-secondary" th:href=" ${urlBuilder.replaceQueryParam('page', page + 1).toUriString()}" th:hidden="${page >= paginas}" role="button">></a>
+                        </div>
+                        <div class="col-lg-auto col-6 text-start">
+                            <a class="btn btn-secondary" th:href=" ${urlBuilder.replaceQueryParam('page', paginas).toUriString()}" role="button">>></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <a class="btn btn-secondary" th:href="@{/inicio}" role="button">Inicio</a>
+                </div>
+            </article>
+        </section>
+    </div>
+</div>
+</body>
+</html>

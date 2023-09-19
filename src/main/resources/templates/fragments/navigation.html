@@ -1,0 +1,32 @@
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div layout:fragment="nav">
+    <nav class="row py-3 px-5 rounded text-center">
+    <form class="col-12" action="/search" method="get">
+        <div class="row">
+            <a th:href="@{/search/type(type='cardio',page=0,orderAvg='disabled',orderLevel='disabled',orderTitulo='disabled')}" class="col-xl-1 col-6 navButton">Cardio</a>
+            <a th:href="@{/search/type(type='muscle',page=0,orderAvg='disabled',orderLevel='disabled',orderTitulo='disabled')}" class="col-xl-2 col-6 navButton">Musculaci&oacute;n</a>
+            <input type="hidden" name="page" value="0">
+            <input class="col-xl-5 col-10 mt-1 rounded-start" type="text" name="search" placeholder="Buscar...">
+            <input class="col-xl-1 col-2 mt-1 rounded-end  btn-secondary text-white" id="searchButton" type="submit" value="Buscar">
+            <div class="col-xl-3 col-12 mt-1">
+                <div class="row h-100 px-1">
+                    <select class="col-4 btn-secondary rounded-start text-white" name="category">
+                        <option selected value="all">M&uacute;sculo</option>
+                        <option th:each="muscle : ${muscles}" th:value="${muscle.id}" th:text="${muscle.name}"></option>
+                    </select>
+                    <select name="level" class="col-4 btn-secondary text-white">
+                        <option value="-1" selected>Nivel</option>
+                        <option th:each="level : ${levels}" th:value="${level.id}" th:text="${level.name}"></option>
+                    </select>
+                    <select name="calisthenic" class="col-4 btn-secondary rounded-end text-white">
+                        <option value="-1" selected>Autocarga</option>
+                        <option value="0" th:text="NO"></option>
+                        <option value="1" th:text="SI"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</nav>
+</div>

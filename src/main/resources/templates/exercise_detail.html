@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="|Detalles del ejercicio ${exercise.id}|"></title>
+</head>
+<body>
+<div layout:fragment="navigation" layout:replace="~{fragments/navigation :: nav}"></div>
+<div layout:fragment="content">
+    <div class="row mx-3">
+        <section class="col-lg-6 p-3 rounded">
+            <article class="row p-3 m-1 rounded h-100 justify-content-center">
+                <a class="col-12" th:href="${exercise.videoLink}">
+                    <img class="mx-auto d-block rounded"
+                         th:src="${exercise.posterLink}"
+                         th:alt="${exercise.name}">
+                </a>
+                <form th:if="${user}" action="/votes/save" method="post" id="ratingForm" class="row p-3 m-1">
+                    <div class="col-12 justify-content-center text-center rating">
+                        <input hidden name="exerciseId" th:value="${exercise.id}">
+                        <input hidden name="userId" th:value="${user.id}">
+                        <input id="star1" name="rating" type="radio" value="5" th:checked="${vote} and ${vote.getRating()} == 5">
+                        <label for="star1">☆</label>
+                        <input id="star2" name="rating" type="radio" value="4" th:checked="${vote} and  ${vote.getRating()} == 4">
+                        <label for="star2">☆</label>
+                        <input id="star3" name="rating" type="radio" value="3" th:checked="${vote} and  ${vote.getRating()} ==3 ">
+                        <label for="star3">☆</label>
+                        <input id="star4" name="rating" type="radio" value="2" th:checked="${vote} and  ${vote.getRating()} ==2 ">
+                        <label for="star4">☆</label>
+                        <input id="star5" name="rating" type="radio" value="1" th:checked="${vote} and  ${vote.getRating()} ==1 ">
+                        <label for="star5">☆</label>
+                    </div>
+                    <div class="col-12 text-center">
+                        <input class="btn btn-secondary" type="submit" value="Votar" form="ratingForm">
+                    </div>
+                </form>
+                <form th:if="${user}" action="/favourites/save" method="post" id="favsForm">
+                        <input hidden name="exerciseId" th:value="${exercise.id}">
+                        <input hidden name="userId" th:value="${user.id}">
+                        <div class="col-12 text-center">
+                            <input th:if="${user} and ${isFavorite}" class="btn btn-secondary"
+                                   type="submit" value="Eliminar de Favoritos">
+                            <input th:if="${user} and ${!isFavorite}" class="btn btn-secondary"
+                                   type="submit" value="Añadir a Favoritos" form="favsForm">
+                        </div>
+                </form>
+                <div class="row p-3">
+                    <div th:if="${exerciseMuscles}" class="col-6 text-center">
+                        <h3><strong>M&uacute;sculos</strong></h3>
+                        <span th:each="muscle, iterator :${exerciseMuscles}" th:text="${muscle.name}+${iterator.count == exerciseMuscles.size() ? '' : ', '}"></span>
+                    </div>
+                    <div th:unless="${exerciseMuscles}" class="col-6 text-center">
+                        <h3><strong>Tiempo</strong></h3>
+                        <p th:text="${time}"></p>
+                        <h3><strong>Calorías quemadas</strong></h3>
+                        <p th:text="${fatBurn}"></p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <h3><strong>Nivel</strong></h3>
+                        <p th:if="${exercise.level.id} == 1" class="text-info" th:text="${exercise.level.name}"></p>
+                        <p th:if="${exercise.level.id} == 2" class="text-success" th:text="${exercise.level.name}"></p>
+                        <p th:if="${exercise.level.id} == 3" class="text-warning" th:text="${exercise.level.name}"></p>
+                        <p th:if="${exercise.level.id} == 4" class="text-danger" th:text="${exercise.level.name}"></p>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <section class="col-lg-6 p-3 rounded">
+            <article class="row p-3 m-1 rounded h-100 justify-content-md-center">
+                <h2 class="col-12 text-center" th:text="${#strings.toUpperCase(exercise.name)}"></h2>
+                <div class="col-md-auto" th:onload="printStars(4)">
+                    <ul class="avgRatingDetail">
+                        <li class="fullStar">☆</li>
+                        <li class="fullStar">☆</li>
+                        <li class="halfStar">☆</li>
+                        <li class="emptyStar">☆</li>
+                        <li class="emptyStar">☆</li>
+                    </ul>
+                </div>
+                <p class="col-12" id="decripcion_ejercicio" th:text="${exercise.description}"></p>
+                <div class="col-12 text-center">
+                    <i>
+                        <button class="btn btn-secondary rounded" onclick="history.go(-1);">Volver</button>
+                    </i>
+                    <a href="/inicio">
+                        <div class="btn btn-secondary rounded">Inicio</div>
+                    </a>
+                </div>
+            </article>
+        </section>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <title>Profile</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <section class="row p-3">
+        <article class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 rounded p-3">
+            <form action="/user/add" method="post">
+                <div class="row mt-3 mx-3 mb-1">
+                    <label class="col-xl-2 offset-xl-1 col-3" for="usuario">Usuario</label>
+                    <input class="col-9" id="usuario" th:name="usuario" th:value="${user?.name}" required>
+                </div>
+                <div class="row mx-3 mb-1">
+                    <label class="col-xl-2 offset-xl-1 col-3" for="password">Password</label>
+                    <input class="col-9" id="password" th:name="password" type="password">
+                </div>
+                <div class="row mx-3 mb-1">
+                    <label class="col-xl-2 offset-xl-1 col-3" for="email">Email</label>
+                    <input class="col-9" id="email" th:name="email" th:value="${user?.email}" required>
+                </div>
+                <div th:if="${user}">
+                    <input th:value="${user?.id}" th:name="userId" hidden>
+                </div>
+                <div class="row m-3">
+                    <input class="btn btn-secondary col-2 offset-3" type="submit" th:value="${user} ? |Modificar| : |Dar de alta|" th:name="accion">
+                </div>
+            </form>
+            <div>
+                <form action="/inicio" method="get">
+                    <input class="btn btn-secondary my-1 ms-3" type="submit" value="Atrás">
+                </form>
+            </div>
+            <div>
+                <form action="/user/logout" method="get">
+                    <input class="btn btn-secondary my-1 ms-3" type="submit" value="Cerrar sesión">
+                </form>
+            </div>
+        </article>
+    </section>
+</div>
+</body>
+
+</html>

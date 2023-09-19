@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Crosstube</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Economica:ital@0;1&family=Koulen&display=swap" rel="stylesheet">
+  <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+  <link rel="icon" type="image/x-icon" href="/media/favicon.png">
+</head>
+<body class="container-fluid">
+<header class="row align-items-center p-3">
+  <div class="col-lg-3 col-md-4 col-4 p-3 m-3">
+    <img id='logo' src="/media/logo.png" alt="logo">
+  </div>
+  <div class="col-lg-5 col-md-4 col-7">
+    <h1>CROSSTUBE</h1>
+  </div>
+  <div class="col-md-4 col align-self-end text-end w-25">
+    <div class="header" th:if="${session.userLogged}">
+      <button type="button"  class="botonDesplegable dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" th:text="|Loged as ${session.userLogged.name}|">
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <form class="dropdown-item" action="/user/add" method="get">
+            <input name="userId" th:value="${session.userLogged.id}" hidden>
+            <input class="botonDesplegable w-100 text-start" type="submit" th:value="|Ver perfil|">
+          </form>
+        </li>
+        <li>
+          <form class="dropdown-item" action="/routine/create" method="get">
+          <input class="botonDesplegable w-100 text-start" type="submit" th:value="|Crear rutina|">
+          </form>
+        </li>
+        <li>
+          <form class="dropdown-item" action="/exercises/favourites" method="get">
+            <input name="userId" th:value="${session.userLogged.id}" hidden>
+            <input class="botonDesplegable w-100 text-start" type="submit" th:value="|Ver favoritos|">
+          </form>
+        </li>
+        <li>
+          <form class="dropdown-item" action="/routine/history" method="get">
+            <input class="botonDesplegable w-100 text-start" type="submit" th:value="|Ver rutinas|">
+          </form>
+        </li>
+        <li><hr class="dropdown-divider"></li><li>
+        <form class="dropdown-item" action="/user/logout" method="get">
+          <input class="botonDesplegable w-100 text-start" type="submit" th:value="|Cerrar sesión|">
+        </form>
+      </li>
+      </ul>
+    </div>
+    <form  th:unless="${session.userLogged} "action="/user/login" method="get">
+      <input class="botonDesplegable" type="submit" th:value="Login">
+    </form>
+  </div>
+</header>
+<main>
+  <div layout:fragment="navigation"></div>
+  <h2 th:if="${tittle}" class="row mx-3 p-5 title" th:text="${tittle}"></h2>
+  <div th:if="${errors != null}" class="row p-3">
+    <div class="col-12 rounded bg-danger text-white">
+      <p th:each="error: ${errors}">*<strong th:text="${error.key}"></strong>: <span th:text="${error.value}"></span></p>
+    </div>
+  </div>
+  <div layout:fragment="content" class="content"></div>
+</main>
+<footer class="row p-5">
+  <small class="col">
+    Created by:<br>
+    Rubén Catalán, Adrián Pascual y Sergi Payà<br>
+    1º DAW 2021/2022 CIPFP Batoi.<br>
+    All rights reserved&copy;
+  </small>
+  <p class="col text-end pt-5">Grupo: P1-01&reg;</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script layout:fragment="script"></script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Nueva Rutina</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="col-12">
+        <section class="row p-3">
+            <article class="col-lg-12 p-4 rounded">
+                <form action="/routine/create" method="post">
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="difficulty">Nivel</label>
+                            <select class="btn-secondary rounded text-white" id="difficulty" name="difficulty">
+                                <option selected value="Level">Cualquiera</option>
+                                <option th:each="level : ${levels}" th:value="${level.id}" th:text="${level.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="calisthenics">Autocarga</label>
+                            <input id="calisthenics" type="checkbox" name="calisthenics">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <p>Selecciona un máximo de <strong>10 ejercicios</strong></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Hombros">Hombros</label>
+                                    <input onchange="comprobarHom()" class="col-6" id="Hombros" type="range" name="hombros" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Espalda">Espalda</label>
+                                    <input onchange="comprobarEsp()" class="col-6" id="Espalda" type="range" name="espalda" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Biceps">Biceps</label>
+                                    <input onchange="comprobarBic()" class="col-6" id="Biceps" type="range" name="biceps" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Triceps">Triceps</label>
+                                    <input onchange="comprobarTri()" class="col-6" id="Triceps" type="range" name="triceps" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Pecho">Pecho</label>
+                                    <input onchange="comprobarPec()" id="Pecho" class="col-6" type="range" name="pecho" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Core">Core</label>
+                                    <input onchange="comprobarCor()" class="col-6" id="Core" type="range" name="core"
+                                           min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Gluteos">Gluteos</label>
+                                    <input onchange="comprobarGlu()" class="col-6" id="Gluteos" type="range"
+                                           name="gluteos" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Cuadriceps">Cuadriceps</label>
+                                    <input onchange="comprobarCua()" class="col-6" id="Cuadriceps" type="range" name="cuadriceps" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Hamstring">Piernas</label>
+                                    <input onchange="comprobarHam()" class="col-6" id="Hamstring" type="range" name="hamstring" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Cardio">Cardio</label>
+                                    <input onchange="comprobarCar()" class="col-6" id="Cardio" type="range" name="cardio" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Lumbar">Lumbar</label>
+                                    <input onchange="comprobarLum()" class="col-6" id="Lumbar" type="range" name="lumbar" min="0" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 p-1">
+                                <div class="row">
+                                    <label class="col-3" for="Agarre">Grip</label>
+                                    <input onchange="comprobarAga()" class="col-6" id="Agarre" type="range" name="grip" max="10" step="1" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4 text-center">
+                        <input class="btn btn-secondary" type="submit" value="Generar rutina">
+                    </div>
+                </form>
+            </article>
+        </section>
+    </div>
+</div>
+<div layout:fragment="script" layout:replace="~{fragments/script :: scp}"></div>
+</body>
+
+</html>

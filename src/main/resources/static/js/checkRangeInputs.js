@@ -1,0 +1,169 @@
+function comprobarHom() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraHombros = document.getElementById("Hombros");
+    if(numeroTotalEjercicios > 10) {
+        barraHombros.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraHombros.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarEsp() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraEspalda = document.getElementById("Espalda");
+    if(numeroTotalEjercicios > 10) {
+        barraEspalda.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraEspalda.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function check(el) {
+    console.log(el);
+    let elements = document.getElementsByClassName("selector-musculos");
+    let total = 0;
+    for (var i = 0; i < elements.length; i++) {
+        total += parseInt(elements[i].value);
+    }
+    console.log(total);
+    if (total > 10) {
+        alert("No puedes seleccionar + de 10 ejercicios")
+        el.value = 10 - (total - parseInt(el.value));
+    }
+}
+
+function comprobarBic() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraBiceps = document.getElementById("Biceps");
+    if(numeroTotalEjercicios > 10) {
+        barraBiceps.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraBiceps.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarTri() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraTriceps = document.getElementById("Triceps");
+    if(numeroTotalEjercicios > 10) {
+        barraTriceps.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraTriceps.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarPec() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraPecho = document.getElementById("Pecho");
+    if(numeroTotalEjercicios > 10) {
+        barraPecho.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraPecho.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarCor() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraCore = document.getElementById("Core");
+    if(numeroTotalEjercicios > 10) {
+        barraCore.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraCore.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarHam() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraPiernas = document.getElementById("Hamstring");
+    if(numeroTotalEjercicios > 10) {
+        barraPiernas.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraPiernas.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarGlu() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraGluteos = document.getElementById("Gluteos");
+    if(numeroTotalEjercicios > 10) {
+        barraGluteos.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraGluteos.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarCua() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraQuadriceps = document.getElementById("Cuadriceps");
+    if(numeroTotalEjercicios > 10) {
+        barraQuadriceps.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraQuadriceps.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarCar() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraCardio = document.getElementById("Cardio");
+    if(numeroTotalEjercicios > 10) {
+        barraCardio.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraCardio.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarLum() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraLumbar = document.getElementById("Lumbar");
+    if(numeroTotalEjercicios > 10) {
+        barraLumbar.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraLumbar.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarAga() {
+    let numeroTotalEjercicios = comprobarEjerciciosSeleccionados();
+    let barraGrip = document.getElementById("Agarre");
+    if(numeroTotalEjercicios > 10) {
+        barraGrip.value = 0;
+        let numeroEjerciciosSinUltimoValor = comprobarEjerciciosSeleccionados();
+        barraGrip.value = 10 - numeroEjerciciosSinUltimoValor;
+    }
+}
+
+function comprobarEjerciciosSeleccionados() {
+    let barraHombros = document.getElementById("Hombros");
+    let barraEspalda = document.getElementById("Espalda");
+    let barraBiceps = document.getElementById("Biceps");
+    let barraTriceps = document.getElementById("Triceps");
+    let barraPecho = document.getElementById("Pecho");
+    let barraCore = document.getElementById("Core");
+    let barraGluteos = document.getElementById("Gluteos");
+    let barraQuadriceps = document.getElementById("Cuadriceps");
+    let barraCardio = document.getElementById("Cardio");
+    let barraLumbar = document.getElementById("Lumbar");
+    let barraGrip = document.getElementById("Agarre");
+    let barraPiernas = document.getElementById("Hamstring");
+
+    let numeroEjerciciosSeleccionado = 0;
+
+    numeroEjerciciosSeleccionado += parseInt(barraHombros.value);
+    numeroEjerciciosSeleccionado += parseInt(barraEspalda.value);
+    numeroEjerciciosSeleccionado += parseInt(barraBiceps.value);
+    numeroEjerciciosSeleccionado += parseInt(barraTriceps.value);
+    numeroEjerciciosSeleccionado += parseInt(barraPecho.value);
+    numeroEjerciciosSeleccionado += parseInt(barraCore.value);
+    numeroEjerciciosSeleccionado += parseInt(barraGluteos.value);
+    numeroEjerciciosSeleccionado += parseInt(barraQuadriceps.value);
+    numeroEjerciciosSeleccionado += parseInt(barraCardio.value);
+    numeroEjerciciosSeleccionado += parseInt(barraLumbar.value);
+    numeroEjerciciosSeleccionado += parseInt(barraGrip.value);
+    numeroEjerciciosSeleccionado += parseInt(barraPiernas.value);
+
+    let indicador = document.getElementById("indicador");
+    indicador.innerHTML = "<p>Ejercicios seleccionados: " + numeroEjerciciosSeleccionado + "</p>";
+
+
+    return numeroEjerciciosSeleccionado;
+}

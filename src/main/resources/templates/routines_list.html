@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="|Hitórico de rutinas de ${user.name}|"></title>
+</head>
+<body>
+<div layout:fragment="navigation" layout:replace="~{fragments/navigation :: nav}"></div>
+<div layout:fragment="content">
+    <div class="row mx-3">
+        <section>
+            <article class="row p-3 m-3 text-center align-items-center rounded">
+                <h3 class="col-12 mb-3"><strong th:text="|Histórico de rutinas de ${user.name}|"></strong></h3>
+                    <table class="col-12">
+                        <tr>
+                            <th>Descripci&oacute;n</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                        <tr th:each="routine : ${routines}" class="border-bottom">
+                            <td th:text="|Ejercicios: ${routine.exercises.size()} - Dificultad: ${routine.difficulty}%|"></td>
+                            <td th:text="${routine.getDateStringES()}"></td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <a th:href="|/routine/detail?routineId=${routine.id}|">Detalle</a>
+                                        </td>
+                                        <td>|</td>
+                                        <td>
+                                            <form action="/routine/delete" method="post">
+                                                <input name="routineId" th:value="${routine.id}" hidden>
+                                                <input type="submit" class="submitForm" value="Eliminar">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                <a href="/inicio" class="col-12 mt-3">
+                    <div class="btn btn-secondary rounded">Inicio</div>
+                </a>
+            </article>
+        </section>
+    </div>
+</div>
+</body>
+</html>

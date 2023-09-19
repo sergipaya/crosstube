@@ -1,0 +1,12 @@
+es.g01.crosstube
+es.g01.crosstube.controllers
+es.g01.crosstube.exceptions
+es.g01.crosstube.model.dao
+es.g01.crosstube.model.dao.impl
+es.g01.crosstube.model.dto
+es.g01.crosstube.model.dto.types
+es.g01.crosstube.model.repositories
+es.g01.crosstube.services
+es.g01.crosstube.utils
+es.g01.crosstube.utils.database
+es.g01.crosstube.workers

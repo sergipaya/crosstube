@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Favoritos</title>
+</head>
+<body>
+<div layout:fragment="navigation" layout:replace="~{fragments/navigation :: nav}"></div>
+<div layout:fragment="content">
+    <section class="row p-3">
+        <article class="row m-1 p-3 rounded">
+            <div class="row m-1 p-1">
+                <div class="col-xl-3 col-md-6 col-12"  th:each="exercise : ${exercises}">
+                    <div class="row border border-secondary m-1 preview" th:onload="printStars(4)">
+                        <p class="col text-center" th:text="${exercise.name}"></p>
+                        <img class="col-12" th:src="${exercise.posterLink}">
+                        <p class="col-6" th:text="${exercise.getType()}"></p>
+                        <p class="col-6">Nivel:
+                            <span th:if="${exercise.level.id} == 1" th:text="${exercise.level.name}" class="text-info"></span>
+                            <span th:if="${exercise.level.id} == 2" th:text="${exercise.level.name}" class="text-success"></span>
+                            <span th:if="${exercise.level.id} == 3" th:text="${exercise.level.name}" class="text-warning"></span>
+                            <span th:if="${exercise.level.id} == 4" th:text="${exercise.level.name}" class="text-danger"></span>
+                        </p>
+                        <p class="col-4 pt-2">Valoraci&oacuten</p>
+                        <ul class="avgRating col-8">
+                            <li th:if="${exercise.avgRating >= 1}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 1}" class="emptyStar">☆</li>
+                            <li th:if="${exercise.avgRating >= 2}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 2}" class="emptyStar">☆</li>
+                            <li th:if="${exercise.avgRating >= 3}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 3}" class="emptyStar">☆</li>
+                            <li th:if="${exercise.avgRating >= 4}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 4}" class="emptyStar">☆</li>
+                            <li th:if="${exercise.avgRating >= 5}" class="fullStar">☆</li>
+                            <li th:unless="${exercise.avgRating >= 5}" class="emptyStar">☆</li>
+                        </ul>
+                    </div>
+                    <form action="/exercise/details" method="get">
+                        <input th:value="${exercise.id}" th:name="exerciseId" hidden>
+                        <input type="submit" class="btn btn-secondary w-100" th:value="'Ver Detalle'">
+                    </form>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+</body>
+</html>

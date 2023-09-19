@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="|Detalles de la rutina ${routine.id}|"></title>
+</head>
+<body>
+<div layout:fragment="navigation" layout:replace="~{fragments/navigation :: nav}"></div>
+<div layout:fragment="content">
+    <div class="row mx-3">
+        <section>
+            <article class="row p-3 m-3 text-center align-items-center rounded">
+                <h3 class="col-12"><strong>Rutina: </strong><span th:text="${#temporals.format(routine.date,'dd-MM-yyyy')}"></span></h3>
+                <h3 class="col-12 mb-3"><strong>Nivel de dificultad: </strong><span th:text="|${difficulty}%|"></span></h3>
+                <div th:if="${exercises.size() <= 5}" class="row" th:each="i: ${#numbers.sequence(1, 2)}">
+                    <p class="col-12"><strong>Ronda: </strong><span th:text="${i}"></span></p>
+                    <div class="row px-1 pl-2 my-1" th:each="exercise : ${exercises}">
+                        <img class="col-md-2 previewSm" th:src="${exercise.posterLink}" th:alt="${exercise.name}">
+                        <span class="col-md-9 text-start"><strong th:text="${exercise.name}"></strong><span th:text="| - ${exercise.reps} Repeticiones, 1 serie|"></span></span>
+                        <a class="col-md-1" th:href="|/exercise/details?exerciseId=${exercise.id}|">Details</a>
+                    </div>
+                </div>
+                <div th:if="${exercises.size() > 5}" class="col-12" th:each="i: ${#numbers.sequence(1, 2)}">
+                    <div class="row">
+                        <p class="col-12"><strong>Ronda: </strong><span th:text="${i}"></span></p>
+                        <div th:if="${i} == 1" class="row py-1" th:each="exercise, iterator : ${exercises}" th:unless="${iterator.index >= exercises.size() / 2}">
+                            <div class="col-12">
+                                <div class="row">
+                                    <img class="col-md-2 previewSm" th:src="${exercise.posterLink}" th:alt="${exercise.name}">
+                                    <span class="col-md-9 text-start"><strong th:text="${exercise.name}"></strong><span th:text="| ${exercise.reps} Repeticiones, 2 series|"></span></span>
+                                    <a class="col-md-1" th:href="|/exercise/details?exerciseId=${exercise.id}|">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:each="exercise, iterator : ${exercises}" th:if="${i} > 1 and ${iterator.index}>=${exercises.size()/2}" class="row py-1">
+                            <img class="col-md-2 previewSm" th:src="${exercise.posterLink}" th:alt="${exercise.name}">
+                            <span class="col-md-9 text-start"><strong th:text="${exercise.name}"></strong><span th:text="| ${exercise.reps} Repeticiones, 2 series|"></span></span>
+                            <a class="col-md-1" th:href="|/exercise/details?exerciseId=${exercise.id}|">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3"></div>
+                <div class="col-6 text-end">
+                    <button class="btn btn-secondary" onclick="history.go(-1);">Volver</button>
+                </div>
+                <a href="/inicio" class="col-6 text-start">
+                    <div class="btn btn-secondary">Inicio</div>
+                </a>
+            </article>
+        </section>
+    </div>
+</div>
+</body>
+</html>
